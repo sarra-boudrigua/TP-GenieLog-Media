@@ -11,22 +11,32 @@ public class Mediatheque {
 	}
 	
 	public void printCatalog() {
-		for (Item i : items)
-			i.print();
+		PrintCatalogOnlyVisitor cat = new PrintCatalogOnlyVisitor ();
+
+		for (Item i : items) {
+			i.accept(cat);
+			System.out.println("this catalog: '"+ i.getTitle()+ "' is printed");
+
+
+		}
 	}
 	
 	public void printOnlyBooks() {
-		throw new UnsupportedOperationException("Not supported yet."); 
-		/*
-		//avec instanceof
-		for (Item i : items)
-			if (i instanceof Book)
-				System.out.println(i);
-		*/
+		PrintBooksOnlyVisitor book = new PrintBooksOnlyVisitor();
+		for (Item i : items) {
+			i.accept(book);
+			System.out.println("this book: '"+ i.getTitle() +"' is printed"+ i.getTitle());
+
+		}
 	}
 
 	public void printOnlyCDs() {
-		throw new UnsupportedOperationException("Not supported yet."); 
+
+		PrintCDsOnlyVisitor cd = new PrintCDsOnlyVisitor ();
+		for (Item i : items) {
+			i.accept(cd);
+			System.out.println("this cd: '"+ i.getTitle()+ "' is printed ");
+		}
 	}
 
 }
